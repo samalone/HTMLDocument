@@ -197,6 +197,9 @@ const char * convertStringEncoding(NSStringEncoding encoding, char * buffer, siz
         case 3:
             errorString = @"XML data seems not to be of type HTML";
             break;
+            
+        default:
+            errorString = @"Unexpected error code";
     }
     return [NSError errorWithDomain:[@"com.klieme." stringByAppendingString: NSStringFromClass([self class])]
                                code:errorCode

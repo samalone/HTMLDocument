@@ -36,32 +36,6 @@
 
 import Foundation
 
-private enum XMLElementType : UInt32
-{
-    case ELEMENT_NODE = 1
-    case ATTRIBUTE_NODE = 2
-    case TEXT_NODE = 3
-    case CDATA_SECTION_NODE = 4
-    case ENTITY_REF_NODE = 5
-    case ENTITY_NODE = 6
-    case PI_NODE = 7
-    case COMMENT_NODE = 8
-    case DOCUMENT_NODE = 9
-    case DOCUMENT_TYPE_NODE = 10
-    case DOCUMENT_FRAG_NODE = 11
-    case NOTATION_NODE = 12
-    case HTML_DOCUMENT_NODE = 13
-    case DTD_NODE = 14
-    case ELEMENT_DECL = 15
-    case ATTRIBUTE_DECL = 16
-    case ENTITY_DECL = 17
-    case NAMESPACE_DECL = 18
-    case XINCLUDE_START = 19
-    case XINCLUDE_END = 20
-    case DOCB_DOCUMENT_NODE = 21
-}
-
-
 extension NSString {
     
     func collapseCharactersinSet(characterSet: NSCharacterSet?,  usingSeparator separator: NSString) -> NSString?
@@ -539,36 +513,32 @@ class HTMLNode : SequenceType, Equatable, CustomStringConvertible {
     The element type of the node.
     */
     
-    var elementType : String? {
-        let rawType = xmlElementTypeToInt(node.type)
-        if let nodeType = XMLElementType(rawValue:rawType) {
+    var elementType : String {
+        switch node.type {
             
-            switch nodeType {
-                
-            case .ELEMENT_NODE: return "Element"
-            case .ATTRIBUTE_NODE: return "Attribute"
-            case .TEXT_NODE: return "Text"
-            case .CDATA_SECTION_NODE: return "CData Section"
-            case .ENTITY_REF_NODE: return "Entity Ref"
-            case .ENTITY_NODE: return "Entity"
-            case .PI_NODE: return "Pi"
-            case .COMMENT_NODE: return "Comment"
-            case .DOCUMENT_NODE: return "Document"
-            case .DOCUMENT_TYPE_NODE: return "Document Type"
-            case .DOCUMENT_FRAG_NODE: return "Document Frag"
-            case .NOTATION_NODE: return "Notation"
-            case .HTML_DOCUMENT_NODE: return "HTML Document"
-            case .DTD_NODE: return "DTD"
-            case .ELEMENT_DECL: return "Element Declaration"
-            case .ATTRIBUTE_DECL: return "Attribute Declaration"
-            case .ENTITY_DECL: return "Entity Declaration"
-            case .NAMESPACE_DECL: return "Namespace Declaration"
-            case .XINCLUDE_START: return "Xinclude Start"
-            case .XINCLUDE_END: return "Xinclude End"
-            case .DOCB_DOCUMENT_NODE: return "DOCD Document"
-            }
+        case XML_ELEMENT_NODE: return "Element"
+        case XML_ATTRIBUTE_NODE: return "Attribute"
+        case XML_TEXT_NODE: return "Text"
+        case XML_CDATA_SECTION_NODE: return "CData Section"
+        case XML_ENTITY_REF_NODE: return "Entity Ref"
+        case XML_ENTITY_NODE: return "Entity"
+        case XML_PI_NODE: return "Pi"
+        case XML_COMMENT_NODE: return "Comment"
+        case XML_DOCUMENT_NODE: return "Document"
+        case XML_DOCUMENT_TYPE_NODE: return "Document Type"
+        case XML_DOCUMENT_FRAG_NODE: return "Document Frag"
+        case XML_NOTATION_NODE: return "Notation"
+        case XML_HTML_DOCUMENT_NODE: return "HTML Document"
+        case XML_DTD_NODE: return "DTD"
+        case XML_ELEMENT_DECL: return "Element Declaration"
+        case XML_ATTRIBUTE_DECL: return "Attribute Declaration"
+        case XML_ENTITY_DECL: return "Entity Declaration"
+        case XML_NAMESPACE_DECL: return "Namespace Declaration"
+        case XML_XINCLUDE_START: return "Xinclude Start"
+        case XML_XINCLUDE_END: return "Xinclude End"
+        case XML_DOCB_DOCUMENT_NODE: return "DOCD Document"
+        default: return "(unknown)"
         }
-        return nil
     }
     
     /**
@@ -578,7 +548,7 @@ class HTMLNode : SequenceType, Equatable, CustomStringConvertible {
     */
     
     var isAttributeNode : Bool? {
-        return xmlElementTypeToInt(node.type) == XMLElementType.ATTRIBUTE_NODE.rawValue
+        return node.type == XML_ATTRIBUTE_NODE
     }
     
     /**
@@ -588,7 +558,7 @@ class HTMLNode : SequenceType, Equatable, CustomStringConvertible {
     */
     
     var isDocumentNode : Bool? {
-        return xmlElementTypeToInt(node.type) == XMLElementType.HTML_DOCUMENT_NODE.rawValue
+        return node.type == XML_HTML_DOCUMENT_NODE
     }
     
     /**
@@ -598,7 +568,7 @@ class HTMLNode : SequenceType, Equatable, CustomStringConvertible {
     */
     
     var isElementNode : Bool? {
-        return xmlElementTypeToInt(node.type) == XMLElementType.ELEMENT_NODE.rawValue
+        return node.type == XML_ELEMENT_NODE
     }
     
     /**
@@ -608,7 +578,7 @@ class HTMLNode : SequenceType, Equatable, CustomStringConvertible {
     */
     
     var isTextNode : Bool? {
-        return xmlElementTypeToInt(node.type) == XMLElementType.TEXT_NODE.rawValue
+        return node.type == XML_TEXT_NODE
     }
     
     /**

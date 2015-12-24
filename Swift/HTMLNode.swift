@@ -1929,8 +1929,8 @@ class HTMLNode : SequenceType, Equatable, CustomStringConvertible {
     // creates a xmlChar from a String
     
     func xmlCharFrom(string: String) -> UnsafePointer<xmlChar> {
-        let cData = string.dataUsingEncoding(NSUTF8StringEncoding)
-        return UnsafePointer<xmlChar>(cData!.bytes)
+        let cData = NSString(string: string).UTF8String
+        return UnsafePointer<xmlChar>(cData)
     }
     
     // sequence generator to be able to write "for item in HTMLNode" as a shortcut for "for item in HTMLNode.children"

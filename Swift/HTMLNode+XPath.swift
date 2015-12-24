@@ -54,59 +54,6 @@ extension HTMLNode  {
     private static func xmlXPathNodeSetIsEmpty(nodes : xmlNodeSetPtr) -> Bool {
         return nodes == nil || nodes.memory.nodeNr == 0 || nodes.memory.nodeTab == nil
     }
-    
- 
-    // performXPathQuery() returns one HTMLNode object or an array of HTMLNode objects if the query matches any nodes, otherwise nil or an empty array
-    
-//    private func performXPathQuery(node : xmlNodePtr, query : String, returnSingleNode : Bool) throws -> AnyObject
-//    {
-//        var error: NSError! = NSError(domain: "Migrator", code: 0, userInfo: nil)
-//        var result : AnyObject? = (returnSingleNode) ? nil : Array<HTMLNode>()
-//        
-//        let xmlDoc = node.memory.doc
-//        let xpathContext = xmlXPathNewContext(xmlDoc)
-//        
-//        if xpathContext != nil {
-//            var xpathObject : xmlXPathObjectPtr
-//            
-//            if (query.hasPrefix("//") || query.hasPrefix("./")) {
-//                xpathObject = xmlXPathNodeEval(node, xmlCharFrom(query), xpathContext)
-//            } else {
-//                xpathObject = xmlXPathEvalExpression(xmlCharFrom(query), xpathContext)
-//            }
-//
-//            if xpathObject != nil {
-//                let nodes = xpathObject.memory.nodesetval
-//                if xmlXPathNodeSetIsEmpty(nodes) == false {
-//                    let nodesArray = UnsafeBufferPointer(start: nodes.memory.nodeTab, count: Int(nodes.memory.nodeNr))
-//                    if returnSingleNode {
-//                        result = HTMLNode(pointer:nodesArray[0])
-//                    } else {
-//                        var resultArray = Array<HTMLNode>()
-//                        for item in nodesArray {
-//                            if let matchedNode = HTMLNode(pointer:item) {
-//                                resultArray.append(matchedNode)
-//                            }
-//                        }
-//                        result = resultArray
-//                    }
-//                }
-//                xmlXPathFreeObject(xpathObject)
-//            }
-//            else {
-//                error = setErrorWithMessage("Could not evaluate XPath expression", code:5)
-//            }
-//            xmlXPathFreeContext(xpathContext)
-//        }
-//        else {
-//            error = setErrorWithMessage("Could not create XPath context", code:4)
-//        }
-//        
-//        if let value = result {
-//            return value
-//        }
-//        throw error
-//    }
 
     // performXPathQuery() returns one HTMLNode object or an array of HTMLNode objects if the query matches any nodes, otherwise nil or an empty array
     
@@ -120,7 +67,7 @@ extension HTMLNode  {
             xmlXPathFreeContext(xpathContext)
         }
         
-        var xpathObject: xmlXPathObjectPtr
+        let xpathObject: xmlXPathObjectPtr
         if (query.hasPrefix("//") || query.hasPrefix("./")) {
             xpathObject = xmlXPathNodeEval(pointer, xmlCharFrom(query), xpathContext)
         } else {
@@ -211,7 +158,7 @@ extension HTMLNode  {
     - returns: The array of all found descendant nodes or an empty array.
     */
     
-    func nodesOfTag(tagName : String, inout error : NSError?) throws -> [HTMLNode]
+    func nodesOfTag(tagName : String) throws -> [HTMLNode]
     {
         return try nodesForXPath(XPathPredicate.node(tagName))
     }

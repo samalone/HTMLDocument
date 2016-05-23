@@ -35,6 +35,7 @@
 ###################################################################################*/
 
 import Foundation
+import libxml2
 
 extension HTMLNode  {
     
@@ -93,7 +94,7 @@ extension HTMLNode  {
     - returns: The first found descendant node or nil if no node matches the parameters.
     */
     
-    func nodeForXPath(query : String) throws -> HTMLNode?
+    public func nodeForXPath(query : String) throws -> HTMLNode?
     {
         return try performXPathQuery(query) {
             (nodes) -> HTMLNode? in
@@ -114,7 +115,7 @@ extension HTMLNode  {
     - returns: The array of all found descendant nodes or an empty array.
     */
     
-    func nodesForXPath(query : String) throws -> [HTMLNode]
+    public func nodesForXPath(query : String) throws -> [HTMLNode]
     {
         return try performXPathQuery(query) {
             (nodes) -> [HTMLNode] in
@@ -145,7 +146,7 @@ extension HTMLNode  {
     - returns: The first found descendant node or nil if no node matches the parameters.
     */
     
-    func nodeOfTag(tagName : String) throws -> HTMLNode?
+    public func nodeOfTag(tagName : String) throws -> HTMLNode?
     {
         return try nodeForXPath(XPathPredicate.node(tagName))
     }
@@ -158,7 +159,7 @@ extension HTMLNode  {
     - returns: The array of all found descendant nodes or an empty array.
     */
     
-    func nodesOfTag(tagName : String) throws -> [HTMLNode]
+    public func nodesOfTag(tagName : String) throws -> [HTMLNode]
     {
         return try nodesForXPath(XPathPredicate.node(tagName))
     }
@@ -173,7 +174,7 @@ extension HTMLNode  {
     - returns: The first found descendant node or nil if no node matches the parameters.
     */
     
-    func nodeOfTag(tagName : String, withAttribute attribute : String) throws -> HTMLNode?
+    public func nodeOfTag(tagName : String, withAttribute attribute : String) throws -> HTMLNode?
     {
         return try nodeForXPath(XPathPredicate.nodeWithAttribute(tagName, attribute))
     }
@@ -188,7 +189,7 @@ extension HTMLNode  {
     - returns: The array of all found descendant nodes or an empty array.
     */
     
-    func nodesOfTag(tagName : String, withAttribute attribute : String) throws -> Array<HTMLNode>
+    public func nodesOfTag(tagName : String, withAttribute attribute : String) throws -> Array<HTMLNode>
     {
         return try nodesForXPath(XPathPredicate.nodeWithAttribute(tagName, attribute))
     }
@@ -203,7 +204,7 @@ extension HTMLNode  {
     - returns: The first found descendant node or nil if no node matches the parameters.
     */
     
-    func nodeWithAttribute(attributeName : String) throws -> HTMLNode?
+    public func nodeWithAttribute(attributeName : String) throws -> HTMLNode?
     {
         return try nodeForXPath(XPathPredicate.attribute(attributeName))
     }
@@ -216,7 +217,7 @@ extension HTMLNode  {
     - returns: The array of all found descendant nodes or an empty array.
     */
     
-    func nodesWithAttribute(attributeName : String) throws -> [HTMLNode]
+    public func nodesWithAttribute(attributeName : String) throws -> [HTMLNode]
     {
         return try nodesForXPath(XPathPredicate.attribute(attributeName))
     }
@@ -231,7 +232,7 @@ extension HTMLNode  {
     - returns: The first found descendant node or nil if no node matches the parameters.
     */
     
-    func nodeWithAttribute(attributeName : String, valueMatches value : String) throws -> HTMLNode?
+    public func nodeWithAttribute(attributeName : String, valueMatches value : String) throws -> HTMLNode?
     {
         return try nodeForXPath(XPathPredicate.attributeIsEqual(attributeName, value))
     }
@@ -246,7 +247,7 @@ extension HTMLNode  {
     - returns: The array of all found descendant nodes or an empty array.
     */
     
-    func nodesWithAttribute(attributeName : String, valueMatches value : String) throws -> [HTMLNode]
+    public func nodesWithAttribute(attributeName : String, valueMatches value : String) throws -> [HTMLNode]
     {
         return try nodesForXPath(XPathPredicate.attributeIsEqual(attributeName, value))
     }
@@ -263,7 +264,7 @@ extension HTMLNode  {
     - returns: The first found descendant node or nil if no node matches the parameters.
     */
 
-    func nodeWithAttribute(attributeName : String,  valueBeginsWith value : String) throws -> HTMLNode?
+    public func nodeWithAttribute(attributeName : String,  valueBeginsWith value : String) throws -> HTMLNode?
     {
         return try nodeForXPath(XPathPredicate.attributeBeginsWith(attributeName, value))
     }
@@ -278,7 +279,7 @@ extension HTMLNode  {
     - returns: The array of all found descendant nodes or an empty array.
     */
     
-    func nodesWithAttribute(attributeName : String,  valueBeginsWith value : String) throws -> [HTMLNode]
+    public func nodesWithAttribute(attributeName : String,  valueBeginsWith value : String) throws -> [HTMLNode]
     {
         return try nodesForXPath(XPathPredicate.attributeBeginsWith(attributeName, value))
     }
@@ -293,7 +294,7 @@ extension HTMLNode  {
     - returns: The first found descendant node or nil if no node matches the parameters.
     */
     
-    func nodeWithAttribute(attributeName : String,  valueEndsWith value : String) throws -> HTMLNode?
+    public func nodeWithAttribute(attributeName : String,  valueEndsWith value : String) throws -> HTMLNode?
     {
         return try nodeForXPath(XPathPredicate.attributeEndsWith(attributeName, value))
     }
@@ -308,7 +309,7 @@ extension HTMLNode  {
     - returns: The array of all found descendant nodes or an empty array.
     */
     
-    func nodesWithAttribute(attributeName : String,  valueEndsWith value : String) throws -> [HTMLNode]
+    public func nodesWithAttribute(attributeName : String,  valueEndsWith value : String) throws -> [HTMLNode]
     {
         return try nodesForXPath(XPathPredicate.attributeEndsWith(attributeName, value))
     }
@@ -323,7 +324,7 @@ extension HTMLNode  {
     - returns: The first found descendant node or nil if no node matches the parameters.
     */
     
-    func nodeWithAttribute(attributeName : String,  valueContains value : String) throws -> HTMLNode?
+    public func nodeWithAttribute(attributeName : String,  valueContains value : String) throws -> HTMLNode?
     {
         return try nodeForXPath(XPathPredicate.attributeContains(attributeName, value))
     }
@@ -338,7 +339,7 @@ extension HTMLNode  {
     - returns: The array of all found descendant nodes or an empty array.
     */
     
-    func nodesWithAttribute(attributeName : String,  valueContains value : String) throws -> [HTMLNode]
+    public func nodesWithAttribute(attributeName : String,  valueContains value : String) throws -> [HTMLNode]
     {
         return try nodesForXPath(XPathPredicate.attributeContains(attributeName, value))
     }
@@ -351,7 +352,7 @@ extension HTMLNode  {
     - returns: The first found descendant node or nil if no node matches the parameters.
     */
     
-    func nodeWithClass(classValue : String) throws -> HTMLNode?
+    public func nodeWithClass(classValue : String) throws -> HTMLNode?
     {
         return try nodeWithAttribute(kClassKey, valueMatches:classValue)
     }
@@ -364,14 +365,14 @@ extension HTMLNode  {
     - returns: The array of all found descendant nodes or an empty array.
     */
     
-    func nodesWithClass(classValue : String) throws -> [HTMLNode]
+    public func nodesWithClass(classValue : String) throws -> [HTMLNode]
     {
         return try nodesWithAttribute(kClassKey, valueMatches:classValue)
     }
 
     // MARK: -  error handling
     
-    func setErrorWithMessage(message : String, code : Int) -> NSError
+    public func setErrorWithMessage(message : String, code : Int) -> NSError
     {
         return NSError(domain: "com.klieme.HTMLDocument", code:code, userInfo: [NSLocalizedDescriptionKey: message])
     }

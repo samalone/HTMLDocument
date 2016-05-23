@@ -35,8 +35,9 @@
 ###################################################################################*/
 
 import Foundation
+import libxml2
 
-class HTMLDocument : NSObject {
+public class HTMLDocument : NSObject {
     
     /** The class name. */
     
@@ -50,7 +51,7 @@ class HTMLDocument : NSObject {
     
     /** The root node.*/
     
-    var rootNode: HTMLNode!
+    public var rootNode: HTMLNode!
     
     /** The head node.*/
     
@@ -87,7 +88,7 @@ class HTMLDocument : NSObject {
     */
     
     // designated initializer
-    init(data: NSData?, encoding: NSStringEncoding) throws
+    public init(data: NSData?, encoding: NSStringEncoding) throws
     {
         super.init()
         var errorCode = 1
@@ -128,7 +129,7 @@ class HTMLDocument : NSObject {
     - returns: An initialized HTMLDocument object, or nil if initialization fails because of parsing errors or other reasons.
     */
     
-    convenience init(data: NSData?) throws
+    public convenience init(data: NSData?) throws
     {
         try self.init(data:data, encoding:NSUTF8StringEncoding)
     }
@@ -145,7 +146,7 @@ class HTMLDocument : NSObject {
     - returns: An initialized HTMLDocument object, or nil if initialization fails because of parsing errors or other reasons.
     */
     
-    convenience init(contentsOfURL url:NSURL, encoding:NSStringEncoding) throws
+    public convenience init(contentsOfURL url:NSURL, encoding:NSStringEncoding) throws
     {
         let options = NSDataReadingOptions(rawValue: 0)
         let data: NSData?
@@ -167,7 +168,7 @@ class HTMLDocument : NSObject {
     - returns: An initialized HTMLDocument object, or nil if initialization fails because of parsing errors or other reasons.
     */
     
-    convenience init(contentsOfURL url: NSURL) throws
+    public convenience init(contentsOfURL url: NSURL) throws
     {
         try self.init(contentsOfURL:url, encoding:NSUTF8StringEncoding)
     }
@@ -184,7 +185,7 @@ class HTMLDocument : NSObject {
     - returns: An initialized HTMLDocument object, or nil if initialization fails because of parsing errors or other reasons.
     */
     
-    convenience init(HTMLString string: String, encoding:NSStringEncoding) throws
+    public convenience init(HTMLString string: String, encoding:NSStringEncoding) throws
     {
         try self.init(data:string.dataUsingEncoding(encoding), encoding:encoding)
     }
@@ -201,7 +202,7 @@ class HTMLDocument : NSObject {
     - returns: An initialized HTMLDocument object, or nil if initialization fails because of parsing errors or other reasons.
     */
     
-    convenience init(HTMLString string: String) throws
+    public convenience init(HTMLString string: String) throws
     {
         try self.init(HTMLString:string, encoding:NSUTF8StringEncoding)
     }

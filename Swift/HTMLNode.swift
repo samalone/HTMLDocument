@@ -35,6 +35,7 @@
 ###################################################################################*/
 
 import Foundation
+import libxml2
 
 extension NSString {
     
@@ -91,7 +92,7 @@ extension NSString {
 }
 
 
-class HTMLNode : SequenceType, Equatable, CustomStringConvertible {
+public class HTMLNode : SequenceType, Equatable, CustomStringConvertible {
     
     /**
     * Constants
@@ -229,7 +230,7 @@ class HTMLNode : SequenceType, Equatable, CustomStringConvertible {
     - returns: The attribute value or ab empty string if the attribute could not be found.
     */
     
-    func attributeForName(name : String) -> String?
+    public func attributeForName(name : String) -> String?
     {
         let attributeValue = xmlGetProp(pointer, xmlCharFrom(name))
         if attributeValue != nil {
@@ -625,7 +626,7 @@ class HTMLNode : SequenceType, Equatable, CustomStringConvertible {
     - returns: The trimmed text content of the node and all its descendants or an empty string.
     */
     
-    var textContent : String? {
+    public var textContent : String? {
         return textContent(pointer)?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
     }
     
@@ -635,7 +636,7 @@ class HTMLNode : SequenceType, Equatable, CustomStringConvertible {
     - returns: An array of all text content of the node and its descendants - each array item is trimmed by whitespace and newline characters - or an empty string.
     */
     
-    var textContentCollapsingWhitespace : String? {
+    public var textContentCollapsingWhitespace : String? {
         return self.textContent?.collapseWhitespaceAndNewLine() as String?
     }
     
@@ -645,7 +646,7 @@ class HTMLNode : SequenceType, Equatable, CustomStringConvertible {
     - returns: An array of all text content of the node and its descendants - each array item is trimmed by whitespace and newline characters - or an empty string.
     */
     
-    var textContentOfDescendants : Array<String> {
+    public var textContentOfDescendants : Array<String> {
         var array = Array<String>()
         textContentOfChildren(node.children, array:&array, recursive:true)
         return array
@@ -657,7 +658,7 @@ class HTMLNode : SequenceType, Equatable, CustomStringConvertible {
     - returns: The raw html text dump of the node and all its descendants or an empty string.
     */
     
-    var HTMLContent : String?  {
+    public var HTMLContent : String?  {
         var result : String?
         let xmlBuffer = xmlBufferCreateSize(DUMP_BUFFER_SIZE)
         let outputBuffer : xmlOutputBufferPtr = xmlOutputBufferCreateBuffer(xmlBuffer, nil)
@@ -1909,7 +1910,7 @@ class HTMLNode : SequenceType, Equatable, CustomStringConvertible {
     // MARK: mark - description
     
     // includes type, name , number of children, attributes and the raw content
-    var description : String {
+    public var description : String {
         var attrs : AnyObject!
         if attributes != nil {
             attrs = attributes!
@@ -1935,7 +1936,7 @@ class HTMLNode : SequenceType, Equatable, CustomStringConvertible {
     
     // sequence generator to be able to write "for item in HTMLNode" as a shortcut for "for item in HTMLNode.children"
     
-    func generate() -> AnyGenerator<HTMLNode> {
+    public func generate() -> AnyGenerator<HTMLNode> {
         var node = pointer.memory.children
         return anyGenerator {
             if xmlNodeIsText(node) == 1 {
@@ -1975,7 +1976,7 @@ class HTMLNode : SequenceType, Equatable, CustomStringConvertible {
 
 // MARK: -  Equation protocol
 
-func == (lhs: HTMLNode, rhs: HTMLNode) -> Bool {
+public func == (lhs: HTMLNode, rhs: HTMLNode) -> Bool {
     
     if lhs.pointer != nil && rhs.pointer != nil {
         return xmlXPathCmpNodes(lhs.pointer!, rhs.pointer!) == 0
